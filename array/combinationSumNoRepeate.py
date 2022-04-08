@@ -1,14 +1,13 @@
-# 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
-# candidates 中的数字可以无限制重复被选取。
+# 给定一个数组 candidates(可重复) 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
 # 说明：
 # 所有数字（包括目标数）都是正整数。
 # 解集不能包含重复的组合。
-
-
-def combinationSumNoRepeat(candidates, target):
+# candidates 中的数字可以无限制重复被选取。
+def combination_sum_repeatable(candidates, target):
     candidate_pairs = get_candidate_pairs(candidates)
     ans = []
+
     def dfs(combines, pos, rest):
         if rest == 0:
             ans.append(combines)
@@ -20,7 +19,8 @@ def combinationSumNoRepeat(candidates, target):
         dfs(combines, pos + 1, rest)  # 不选
         for i in range(1, candidate_pairs[pos][1] + 1):
             if rest >= i * candidate_pairs[pos][0]:
-                dfs(combines + [candidate_pairs[pos][0]] * i, pos + 1, rest - i * candidate_pairs[pos][0])
+                dfs(combines + [candidate_pairs[pos][0]] * i,
+                    pos + 1, rest - i * candidate_pairs[pos][0])
     dfs([], 0, target)
     return ans
 
@@ -39,5 +39,5 @@ def get_candidate_pairs(candidates):
 if __name__ == "__main__":
     # nums = [2,2,1,3,4,6,7,2,1,4,2,3,4,5,1,6,7,8,8]
     nums = [4,4,4]
-    print(combinationSumNoRepeat(nums, 4))
+    print(combination_sum_repeatable(nums, 4))
     # print(get_candidate_pairs(nums))
