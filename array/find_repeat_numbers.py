@@ -15,6 +15,28 @@ def find_repeat_numbers(nums):
     return repeats
 
 
+def find_repeat_numbers_once_with_no_modify(nums):
+    """ 不修改数组的基础上找出一个重复的数字 """
+    length = len(nums)
+    right = length - 1
+    left = 1
+    while True:
+        if right == left:
+            return right
+
+        middle = int((right + left) / 2)
+        left_count = 0
+        for num in nums:
+            if left <= num <= middle:
+                left_count += 1
+
+        if left_count > middle - left + 1:
+            right = middle
+        else:
+            left = middle + 1
+
+
 if __name__ == '__main__':
-    numbers = [2, 3, 1, 0, 2, 5, 3, 0, 3, 4, 6, 8, 9, 7]
+    numbers = [1, 2, 1]
     print(find_repeat_numbers(numbers))
+    print(find_repeat_numbers_once_with_no_modify(numbers))
